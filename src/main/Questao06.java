@@ -19,7 +19,7 @@ import java.util.Scanner;
  - Números negativos ou zero quebram a sequência de positivos
  - O número 0 serve apenas para parar a leitura
  */
-public class Questao6 {
+public class Questao06 {
 
     public static void main(String[] args) {
 

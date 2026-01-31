@@ -23,7 +23,7 @@ import java.util.Scanner;
  0
 */
 
-public class Questao3 {
+public class Questao03 {
     
     public static void main(String[] args) {
         

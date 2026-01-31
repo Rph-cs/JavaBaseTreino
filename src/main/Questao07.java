@@ -31,7 +31,7 @@ import java.util.Scanner;
  Média = 6.66
  */
 
-public class Questao7 {
+public class Questao07 {
 
     public static void main(String[] args) {
 

@@ -30,7 +30,7 @@ import java.util.Scanner;
  Saída:
  - Resultado da operação escolhida
  */
-public class Questao8 {
+public class Questao08 {
 
     public static void main(String[] args) {
 

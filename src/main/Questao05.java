@@ -19,7 +19,7 @@ import java.util.Scanner;
  - O número 0 serve apenas para parar a leitura, **não entra em nenhum cálculo**
 */
 
-public class Questao5 {
+public class Questao05 {
     
     public static void main(String[] args) {
         

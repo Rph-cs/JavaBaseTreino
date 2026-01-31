@@ -19,7 +19,7 @@ import java.util.Scanner;
  - Apenas uma mensagem de acordo com as regras acima
 */
 
-public class Questao2 {
+public class Questao02 {
     
     public static void main(String[] args) {
         

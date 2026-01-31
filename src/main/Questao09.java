@@ -56,7 +56,7 @@ import java.util.Scanner;
  Código inválido
  */
 
-public class Questao9 {
+public class Questao09 {
 
     public static void main(String[] args) {
 

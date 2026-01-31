@@ -22,7 +22,7 @@ import java.util.Scanner;
  Saída:
  Total = 6
  */
-public class Questao4 {
+public class Questao04 {
 
     public static void main(String[] args) {
 
