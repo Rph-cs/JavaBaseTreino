@@ -66,8 +66,5 @@ public class Questao10 {
         System.out.format("Total de tentativas válidas: %d%n", totalTentativasValidas);
         System.out.format("Total de tentativas bloqueadas: %d%n", totalTentativasBloqueadas);
         System.out.println(registroEvento);
-        
-        
-        
     }
 }

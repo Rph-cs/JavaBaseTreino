@@ -103,6 +103,5 @@ public class Questao11 {
         System.out.format("Primeiro atendimento: %s %n", prioridade);
         System.out.println(aviso);
 
-
     }
 }
