@@ -21,92 +21,116 @@ public class ContaCorrente {
     }
 
     protected void realizarDeposito() {
-
-        System.out.println("Informe o valor que deseja depositar: ");
-        double valorDeposito = scanner.nextDouble();
-
-        if (valorDeposito <= 0) {
-            System.out.println("Não é possível depositar valores igual ou menor que 0");
+        if (contaBloqueada) {
+            System.out.println("Sua conta está bloqueada, não é possivel realizar depósito");
         } else {
-            saldo += valorDeposito;
-            System.out.println("Valor depositado com sucesso");
+            System.out.println("Informe o valor que deseja depositar: ");
+            double valorDeposito = scanner.nextDouble();
+
+            if (valorDeposito <= 0) {
+                System.out.println("Não é possível depositar valores igual ou menor que 0");
+            } else {
+                saldo += valorDeposito;
+                System.out.println("Valor depositado com sucesso");
+            }
         }
+
     }
 
     protected void realizarSaque() {
-        System.out.println("Informe o valor que você deseja sacar:");
-        double saque = scanner.nextDouble();
-
-        double novoSaldo = saldo - saque;
-
-        if (especial) {
-            if (novoSaldo >= -limite) {
-                saldo = novoSaldo;
-                System.out.println("Saque realizado com sucesso");
-            } else {
-                System.out.println("Saque inválido, valor ultrapassa o limite da conta");
-            }
+        if (contaBloqueada) {
+            System.out.println("Sua conta está bloqueada, não é possível realizar saque");
         } else {
-            if (novoSaldo >= 0) {
-                saldo = novoSaldo;
-                System.out.println("Saque realizado com sucesso");
+            System.out.println("Informe o valor que você deseja sacar:");
+            double saque = scanner.nextDouble();
+
+            double novoSaldo = saldo - saque;
+
+            if (especial) {
+                if (novoSaldo >= -limite) {
+                    saldo = novoSaldo;
+                    System.out.println("Saque realizado com sucesso");
+                } else {
+                    System.out.println("Saque inválido, valor ultrapassa o limite da conta");
+                }
             } else {
-                System.out.println("Saque inválido, saldo insuficiente");
+                if (novoSaldo >= 0) {
+                    saldo = novoSaldo;
+                    System.out.println("Saque realizado com sucesso");
+                } else {
+                    System.out.println("Saque inválido, saldo insuficiente");
+                }
             }
         }
+
     }
 
     protected void verificarCheque() {
-        if (especial) {
-            if (saldo >= 0) {
-                System.out.println("A conta não está usando cheque especial");
-            } else {
-                System.out.println("A conta está usando cheque especial");
-            }
+        if (contaBloqueada) {
+            System.out.println("Sua conta está bloqueada, não é possível verificar o cheque especial");
         } else {
-            System.out.println("A conta não possue acesso ao cheque especial");
+            if (especial) {
+                if (saldo >= 0) {
+                    System.out.println("A conta não está usando cheque especial");
+                } else {
+                    System.out.println("A conta está usando cheque especial");
+                }
+            } else {
+                System.out.println("A conta não possue acesso ao cheque especial");
+            }
         }
     }
 
     protected void mostrarInformacoesConta() {
-        System.out.println("Informações da conta:");
-        System.out.println("Saldo atual da conta: " + saldo);
-        if (especial) {
-            System.out.println("Status: conta especial");
-            System.out.println("Limite cheque especial: " + limite);
+        if (contaBloqueada) {
+            System.out.println("Sua conta esta bloqueada.");
         } else {
-            System.out.println("Status: conta não é especial");
+            System.out.println("Informações da conta:");
+            System.out.println("Saldo atual da conta: " + saldo);
+            if (especial) {
+                System.out.println("Status: conta especial");
+                System.out.println("Limite cheque especial: " + limite);
+            } else {
+                System.out.println("Status: conta não é especial");
+            }
         }
+
     }
 
     protected void autenticarAcessoMenu() {
-        int tentativasAcessoMenu = 3;
+        if (contaBloqueada) {
+            System.out.println("Sua conta está bloqueada");
+        } else {
+            int tentativasAcessoMenu = 3;
 
-        while (tentativasAcessoMenu > 0) {
-            System.out.println("Informe seu CPF: ");
-            String tentativaCpf = scanner.nextLine();
+            while (tentativasAcessoMenu > 0) {
+                System.out.println("Informe seu CPF: ");
+                String tentativaCpf = scanner.nextLine();
 
-            System.out.println("Digite a sua senha: ");
-            String tentativaSenha = scanner.nextLine();
+                System.out.println("Digite a sua senha: ");
+                String tentativaSenha = scanner.nextLine();
 
-            if (tentativaCpf.equals(cliente.getCpf()) && tentativaSenha.equals(cliente.getSenha())) {
-                System.out.println("Acesso ao menu liberado.");
-                mostrarMenu();
-                break;
-            } else {
-                tentativasAcessoMenu--;
-                if (tentativasAcessoMenu != 0) {
-                    System.out.println("Acesso negado, restam " + tentativasAcessoMenu + " tentativas");
+                if (tentativaCpf.equals(cliente.getCpf()) && tentativaSenha.equals(cliente.getSenha())) {
+                    System.out.println("Acesso ao menu liberado.");
+                    mostrarMenu();
+                    break;
                 } else {
-                    System.out.println("Tentativas esgotadas, acesso bloqueado");
+                    tentativasAcessoMenu--;
+                    if (tentativasAcessoMenu != 0) {
+                        System.out.println("Acesso negado, restam " + tentativasAcessoMenu + " tentativas");
+                    } else {
+                        System.out.println("Tentativas esgotadas, acesso bloqueado");
+                        contaBloqueada = true;
+                    }
+
                 }
-
             }
-
         }
+
+
     }
 
-    protected void mostrarMenu() {
+    private void mostrarMenu() {
         int opMenu = 0;
 
         do {
@@ -153,6 +177,11 @@ public class ContaCorrente {
 
         } while (opMenu != 0);
 
+    }
+
+
+    public ClienteConta getCliente() {
+        return cliente;
     }
 }
 
