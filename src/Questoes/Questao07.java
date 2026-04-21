@@ -1,4 +1,4 @@
-package main;
+package Questoes;
 
 import java.util.Scanner;
 /*

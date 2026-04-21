@@ -8,16 +8,16 @@ public class contaCorrenteTeste {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        
+
         ArrayList<ClienteConta> clientes = new ArrayList<>();
         ArrayList<ContaCorrente> contas = new ArrayList<>();
-        
+
         int op;
 
         do {
-            System.out.println("1 - Cadastrar cliente");
-            System.out.println("2 - Acessar conta");
-            System.out.println("0 - Sair");
+            System.out.println("1- Cadastrar conta");
+            System.out.println("2 - Acessar conta por cpf");
+            System.out.println("Finalizar");
 
             op = scanner.nextInt();
             scanner.nextLine();
@@ -33,7 +33,7 @@ public class contaCorrenteTeste {
 
                     System.out.println("Cliente e conta cadastrados com sucesso!");
                     break;
-
+                    
                 case 2:
                     System.out.println("Digite o CPF para acessar:");
                     String cpfBusca = scanner.nextLine();
@@ -47,6 +47,5 @@ public class contaCorrenteTeste {
             }
 
         } while (op != 0);
-
     }
 }

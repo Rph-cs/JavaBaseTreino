@@ -13,11 +13,6 @@ public class LampadaTeste {
         lampada.desligarLampada();
         lampada.ligarLampada();
         lampada.ligarLampada();
-        
-        
-        
-        
     }
-    
 }
 

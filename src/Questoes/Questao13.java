@@ -1,4 +1,4 @@
-package main;
+package Questoes;
 /*
 Faça um programa que efetue reserva de passagens aéreas de uma certa companhia. O programa deverá ler informações sobre os vôos (número, origem e destino) juntamente com o número de lugares disponíveis para 12 aviões (um vetor para cada um destes dados). O programa deverá apresentar um menu com as seguintes opções:
 Consultar
