@@ -45,7 +45,7 @@ public class Medicamento {
                 "\nNome do produto: " + nome +
                 "\nLaboratório: " + laboratorio +
                 "\nPreço unidade: " +preco +
-                "\nEstoque atual: " + estoque;
+                "\nEstoque atual: " + estoque + "\n";
     }
 
     public String getNome() {

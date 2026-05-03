@@ -15,7 +15,7 @@ public class MedicamentoTeste {
         System.out.println("Bem vindo a farmácia " + farmacia.getNome());
         
         
-        while (op != 5) {
+        while (op != 8) {
 
             abrirMenu();
 
@@ -31,8 +31,12 @@ public class MedicamentoTeste {
 
                 case 4 -> vender(scanner, farmacia);
 
-                case 5 -> System.out.println("Saindo do sistema...");
+                case 5 -> System.out.println(farmacia.getMedicamentos());
 
+                case 6 -> removerMedicamento(scanner, farmacia);
+                
+                case 8 -> System.out.println("Saindo do sistema...");
+                
                 default -> System.out.println("Opção inválida");
 
             }
@@ -75,7 +79,10 @@ public class MedicamentoTeste {
         System.out.println("2 - buscar medicamento");
         System.out.println("3 - Adicionar estoque");
         System.out.println("4 - Vender");
-        System.out.println("5 - Sair\n");
+        System.out.println("5 - Listar todos medicamentos");
+        System.out.println("6 - Remover medicamento");
+        System.out.println("7 - Mostrar medicamentos sem estoques");
+        System.out.println("8 - Sair\n");
     }
 
     private static void cadastrarMedicamento(Scanner scanner, Farmacia farmacia) {
@@ -152,6 +159,18 @@ public class MedicamentoTeste {
             System.out.println("Preço unidade: " + m.getPreco());
             System.out.printf("Total: R$ %.2f%n", m.getPreco() * quantidade);
         
+    }
+    
+    private static void removerMedicamento(Scanner scanner, Farmacia farmacia) {
+        System.out.print("Nome do medicamento: ");
+        String nome = scanner.nextLine();
+        
+        if (farmacia.jaTemMedicamento(nome)) {
+            farmacia.removerMedicamento(nome);
+            System.out.println("Medicamento removido com sucesso");
+            return;
+        }
+        System.out.println("Medicamento não encontrado");
     }
         
 }

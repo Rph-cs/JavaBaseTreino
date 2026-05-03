@@ -53,5 +53,18 @@ public class Farmacia {
     public String getNome() {
         return nome;
     }
+    
+    public void removerMedicamento(String nome) {
+        for (Medicamento m : medicamentos) {
+            if (m.getNome().equalsIgnoreCase(nome.trim())) {
+                medicamentos.remove(m);
+                return;
+            }
+        }
+    }
+
+    public List<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
 }
 
