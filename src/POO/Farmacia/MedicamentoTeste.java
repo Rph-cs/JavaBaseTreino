@@ -8,35 +8,37 @@ public class MedicamentoTeste {
 
         Scanner scanner = new Scanner(System.in);
 
-        Medicamento medicamento = new Medicamento("Dipirona", "Sul 1", 4.40, 40);
-        
+        Farmacia farmacia = new Farmacia("Java");
+
         int op = 0;
 
-        while (op != 4) {
-            
+        System.out.println("Bem vindo a farmácia " + farmacia.getNome());
+        
+        
+        while (op != 5) {
+
             abrirMenu();
 
             op = lerInteiro(scanner, "Opção: ");
-            
+
             switch (op) {
 
-                case 1 -> {
-                    int quantidade = lerInteiro(scanner, "Quantidade a adicionar: ");
-                    medicamento.adicionarEstoque(quantidade);
-                }
-                case 2 -> {
-                    int quantidade = lerInteiro(scanner, "Quantidade a comprar: ");
-                    medicamento.vender(quantidade);
-                }
-                case 3 -> medicamento.mostrarStatus();
+                case 1 -> cadastrarMedicamento(scanner, farmacia);
 
-                case 4 -> System.out.println("Encerrando o sistema...");
+                case 2 -> buscarMedicamento(scanner, farmacia);
+
+                case 3 -> adicionarEstoque(scanner, farmacia);
+
+                case 4 -> vender(scanner, farmacia);
+
+                case 5 -> System.out.println("Saindo do sistema...");
 
                 default -> System.out.println("Opção inválida");
-            }
-        }
 
-        scanner.close();
+            }
+
+
+        }
     }
 
     private static int lerInteiro(Scanner scanner, String mensagem) {
@@ -52,13 +54,104 @@ public class MedicamentoTeste {
             scanner.nextLine();
         }
     }
-    
-    private static void abrirMenu() {
-        System.out.println("\n--MENU--");
-        System.out.println("1 - Adicionar estoque");
-        System.out.println("2 - Vender");
-        System.out.println("3 - Ver status");
-        System.out.println("4 - Sair\n");
+
+    private static double lerDouble(Scanner scanner, String mensagem) {
+
+        while (true) {
+            System.out.print(mensagem);
+            if (scanner.hasNextDouble()) {
+                double valor = scanner.nextDouble();
+                scanner.nextLine();
+                return valor;
+            }
+            System.out.println("Digite apenas números.");
+            scanner.nextLine();
+        }
     }
-    
+
+    private static void abrirMenu() {
+        System.out.println("\n--MENU FARMÁCIA--");
+        System.out.println("1 - cadastrar medicamento");
+        System.out.println("2 - buscar medicamento");
+        System.out.println("3 - Adicionar estoque");
+        System.out.println("4 - Vender");
+        System.out.println("5 - Sair\n");
+    }
+
+    private static void cadastrarMedicamento(Scanner scanner, Farmacia farmacia) {
+        System.out.print("Informe o nome do medicamento: ");
+        String nome = scanner.nextLine();
+
+        if (farmacia.jaTemMedicamento(nome)) {
+            System.out.println("Este remédio ja está cadastrado");
+            return;
+        }
+
+        System.out.print("Informe o laboratório do medicamento: ");
+        String laboratorio = scanner.nextLine();
+
+        double preco = lerDouble(scanner, "Informe o preço do medicamento: ");
+        int estoque = lerInteiro(scanner, "Informe a quantidade de estoque do medicamento: ");
+
+        Medicamento medicamento = new Medicamento(nome, laboratorio, preco, estoque);
+
+        farmacia.cadastrarMedicamento(medicamento);
+        System.out.println("Medicamento cadastrado com sucesso.");
+    }
+
+    private static void buscarMedicamento(Scanner scanner, Farmacia farmacia) {
+        System.out.println("Informe o nome do medicamento a procura: ");
+        String nome = scanner.nextLine();
+
+        Medicamento m = farmacia.buscarPorNome(nome);
+
+        if (m != null) {
+            System.out.println(m);
+        } else {
+            System.out.println("Remédio não encontrado");
+        }
+    }
+
+    private static void adicionarEstoque(Scanner scanner, Farmacia farmacia) {
+
+        System.out.print("Nome do medicamento: ");
+        String nome = scanner.nextLine();
+
+        Medicamento m = farmacia.buscarPorNome(nome);
+
+        if (m == null) {
+            System.out.println("Medicamento não encontrado.");
+            return;
+        }
+
+        int quantidade = lerInteiro(scanner, "Quantidade para adicionar ao estoque: ");
+
+        if (m.adicionarEstoque(quantidade)) {
+            System.out.println("Quantidade adicionada ao estoque com sucesso");
+            System.out.println("Estoque atual: " + m.getEstoque());
+        } else {
+            System.out.println("Valor inválido");
+        }
+    }
+
+    private static void vender(Scanner scanner, Farmacia farmacia) {
+        System.out.print("Nome do medicamento: ");
+        String nome = scanner.nextLine();
+
+        int quantidade = lerInteiro(scanner, "Quantidade: ");
+
+        Medicamento m = farmacia.vender(nome, quantidade);
+
+        if (m == null) {
+            System.out.println("Não foi possível realizar a venda");
+            return;
+        }
+        
+            System.out.println("\nNome do produto: " + m.getNome());
+            System.out.println("Laboratório: " + m.getLaboratorio());
+            System.out.println("Preço unidade: " + m.getPreco());
+            System.out.printf("Total: R$ %.2f%n", m.getPreco() * quantidade);
+        
+    }
+        
 }

@@ -14,44 +14,53 @@ public class Medicamento {
         this.estoque = estoque < 0 ? 0 : estoque;
     }
     
-    public void adicionarEstoque(int quantidade) {
+    public boolean adicionarEstoque(int quantidade) {
         if (quantidade <= 0) {
-            System.out.println("Valor inválido");
-            return;
+            return false;
         }
         
         estoque += quantidade;
 
-        System.out.println("Estoque atual: " + estoque);
+        return true;
         
     }
-    
-    public void vender(int quantidade) {
-        if (quantidade > estoque) {
-            System.out.println("Não temos quantidade suficiente no estoque");
-            return;
-        }
-        mostrarConta(quantidade);
-        estoque -= quantidade;
 
-        System.out.println("Estoque atual: " + estoque);
-        
+    public boolean vender(int quantidade) {
+
+        if (quantidade <= 0) {
+            return false;
+        }
+
+        if (quantidade > estoque) {
+            return false;
+        }
+
+        estoque -= quantidade;
+        return true;
     }
-    
-    public void mostrarStatus() {
-        System.out.println("\n--Status do produto--");
-        System.out.println("Nome do produto: " + nome);
-        System.out.println("Laboratório: " + laboratorio);
-        System.out.println("Preço unidade: " +preco);
-        System.out.println("Estoque atual: " + estoque);
+
+    @Override
+    public String toString() {
+        return "\n--Status do produto--" +
+                "\nNome do produto: " + nome +
+                "\nLaboratório: " + laboratorio +
+                "\nPreço unidade: " +preco +
+                "\nEstoque atual: " + estoque;
     }
-    
-    public void mostrarConta(int quantidade) {
-        System.out.println("\nNome do produto: " + nome);
-        System.out.println("Laboratório: " + laboratorio);
-        System.out.println("Preço unidade: " +preco);
-        System.out.printf("Total a pagar: R$ %.2f\n", quantidade * preco);
+
+    public String getNome() {
+        return nome;
     }
-    
-    
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public String getLaboratorio() {
+        return laboratorio;
+    }
 }
