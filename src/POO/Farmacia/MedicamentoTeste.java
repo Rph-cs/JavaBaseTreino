@@ -31,9 +31,11 @@ public class MedicamentoTeste {
 
                 case 4 -> vender(scanner, farmacia);
 
-                case 5 -> System.out.println(farmacia.getMedicamentos());
+                case 5 -> farmacia.listarMedicamentos();
 
                 case 6 -> removerMedicamento(scanner, farmacia);
+                
+                case 7 -> farmacia.verificarEstoque();
                 
                 case 8 -> System.out.println("Saindo do sistema...");
                 
@@ -89,7 +91,7 @@ public class MedicamentoTeste {
         System.out.print("Informe o nome do medicamento: ");
         String nome = scanner.nextLine();
 
-        if (farmacia.jaTemMedicamento(nome)) {
+        if (farmacia.buscarPorNome(nome) != null) {
             System.out.println("Este remédio ja está cadastrado");
             return;
         }
@@ -156,7 +158,7 @@ public class MedicamentoTeste {
         
             System.out.println("\nNome do produto: " + m.getNome());
             System.out.println("Laboratório: " + m.getLaboratorio());
-            System.out.println("Preço unidade: " + m.getPreco());
+            System.out.printf("Preço unidade: R$ %.2f%n", m.getPreco());
             System.out.printf("Total: R$ %.2f%n", m.getPreco() * quantidade);
         
     }
@@ -165,8 +167,7 @@ public class MedicamentoTeste {
         System.out.print("Nome do medicamento: ");
         String nome = scanner.nextLine();
         
-        if (farmacia.jaTemMedicamento(nome)) {
-            farmacia.removerMedicamento(nome);
+        if (farmacia.removerMedicamento(nome)) {
             System.out.println("Medicamento removido com sucesso");
             return;
         }

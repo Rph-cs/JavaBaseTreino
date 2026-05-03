@@ -17,13 +17,34 @@ public class Farmacia {
         medicamentos.add(m);
     }
 
-    public boolean jaTemMedicamento(String nome) {
+    public void listarMedicamentos() {
+        if (medicamentos.isEmpty()) {
+            System.out.println("Nenhum medicamento cadastrado.");
+            return;
+        }
         for (Medicamento m : medicamentos) {
-            if (m.getNome().equalsIgnoreCase(nome.trim())) {
-                return true;
+            System.out.println(m); // usa o toString que você já fez
+        }
+    }
+
+    public void verificarEstoque() {
+        if (medicamentos.isEmpty()) {
+            System.out.println("Nenhum medicamento cadastrado.");
+            return;
+        }
+
+        boolean achouSemEstoque = false;
+
+        for (Medicamento m : medicamentos) {
+            if (m.getEstoque() == 0) {
+                System.out.println(m.getNome() + " está sem estoque");
+                achouSemEstoque = true;
             }
         }
-        return false;
+
+        if (!achouSemEstoque) {
+            System.out.println("Todos os medicamentos têm estoque.");
+        }
     }
     
     public Medicamento buscarPorNome(String nome) {
@@ -54,17 +75,15 @@ public class Farmacia {
         return nome;
     }
     
-    public void removerMedicamento(String nome) {
+    public boolean removerMedicamento(String nome) {
         for (Medicamento m : medicamentos) {
             if (m.getNome().equalsIgnoreCase(nome.trim())) {
                 medicamentos.remove(m);
-                return;
+                return true;
             }
+        
         }
-    }
-
-    public List<Medicamento> getMedicamentos() {
-        return medicamentos;
+        return false;
     }
 }
 
