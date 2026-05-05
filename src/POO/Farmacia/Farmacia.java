@@ -22,6 +22,9 @@ public class Farmacia {
             System.out.println("Nenhum medicamento cadastrado.");
             return;
         }
+
+        System.out.println("Total de medicamentos cadastrados: " + medicamentos.size());
+        
         for (Medicamento m : medicamentos) {
             System.out.println(m); // usa o toString que você já fez
         }
