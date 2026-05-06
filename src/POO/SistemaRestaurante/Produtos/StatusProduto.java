@@ -1,14 +1,15 @@
-package POO.AluraContaBancaria;
+package POO.SistemaRestaurante.Produtos;
 
-public enum TipoConta {
-    CORRENTE("Conta corrente");
+public enum StatusProduto {
+    DISPONIVEL("Disponível"),
+    INDISPONIVEL("Indisponível");
     
     private final String nomeExibicao;
     
-    TipoConta(String nomeExibicao) {
+    StatusProduto(String nomeExibicao) {
         this.nomeExibicao = nomeExibicao;
     }
-    
+
     @Override
     public String toString() {
         return nomeExibicao;

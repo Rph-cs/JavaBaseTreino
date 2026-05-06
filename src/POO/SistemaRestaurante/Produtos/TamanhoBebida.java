@@ -1,14 +1,16 @@
-package POO.AluraContaBancaria;
+package POO.SistemaRestaurante.Produtos;
 
-public enum TipoConta {
-    CORRENTE("Conta corrente");
+public enum TamanhoBebida {
+    PEQUENO("Pequeno"),
+    MEDIO("Médio"),
+    GRANDE("Grande");
     
     private final String nomeExibicao;
     
-    TipoConta(String nomeExibicao) {
+    TamanhoBebida(String nomeExibicao) {
         this.nomeExibicao = nomeExibicao;
     }
-    
+
     @Override
     public String toString() {
         return nomeExibicao;
