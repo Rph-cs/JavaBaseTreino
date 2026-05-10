@@ -11,14 +11,16 @@ public class Restaurante {
     public Restaurante() {
         this.cliente = new ArrayList<>();
     }
-    
-    public boolean verificarCpf(String cpf) {
+
+    public boolean cpfJaExiste(String cpf) {
+
         for (Cliente c : cliente) {
-            if (c.getCpf().equalsIgnoreCase(cpf.trim())) {
-                return false;
+            if (c.getCpf().trim().equals(cpf.trim())) {
+                return true;
             }
         }
-        return true;
+
+        return false;
     }
     
     public void cadastrarCliente(Cliente c) {

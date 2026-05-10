@@ -9,11 +9,8 @@ public class Cliente {
         this.cpf = cpf;
     }
     
-    public boolean verificarCpf(String cpf) {
-        if (cpf.length() != 11) {
-            return false;
-        }
-        return true;
+    public boolean verificarDigitosCpf(String cpf) {
+        return cpf != null || cpf.trim().length() == 11;
     }
 
     public String getCpf() {
