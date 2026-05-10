@@ -13,7 +13,11 @@ public class Sobremesa extends Produto {
     public int getTempoPreparo() {
         return 10;
     }
-    
-    
-    
+
+
+    // no Lanche
+    @Override
+    public String toString() {
+        return super.toString() + "Temperatura da sobremesa: " + temperaturaSobremesa+ "\n";
+    }
 }

@@ -13,5 +13,11 @@ public class Bebidas extends Produto {
     public int getTempoPreparo() {
         return 5;
     }
+
+    // no Lanche
+    @Override
+    public String toString() {
+        return super.toString() + "Tamanho da bebida: " + tamanhoBebida + "\n";
+    }
     
 }

@@ -129,10 +129,8 @@ public class main {
             case 1 -> {
                 System.out.print("\nInforme o nome do lanche: ");
                 String nome = scanner.nextLine();
-
-                System.out.print("\nInforme o preço do lanche: ");
-                double preco = scanner.nextDouble();
-                scanner.nextLine();
+                
+                double preco = lerDouble(scanner, "\nInforme o preço do lanche: ");
 
                 System.out.println("Informe o ingrediente do lanche: ");
                 String ingrediente = scanner.nextLine();
@@ -148,15 +146,14 @@ public class main {
                 System.out.print("\nInforme o nome da bebida: ");
                 String nome = scanner.nextLine();
 
-                System.out.print("\nInforme o preço da bebida: ");
-                double preco = lerDouble(scanner, "");
+                double preco = lerDouble(scanner, "\nInforme o preço da bebida: ");
 
                 System.out.println("\nInforme o tamanho da bebida(grande, media, pequena)");
                 String tamanho = scanner.nextLine().toUpperCase();
                 
-                TamanhoBebida TipoEnum = TamanhoBebida.valueOf(tamanho);
+                TamanhoBebida tipoEnum = TamanhoBebida.valueOf(tamanho);
                         
-                Produto bebida = new Bebidas(nome, preco, TipoEnum);
+                Produto bebida = new Bebidas(nome, preco, tipoEnum);
                 
                 restaurante.cadastrarProduto(bebida);
 
@@ -167,15 +164,14 @@ public class main {
                 System.out.print("\nInforme o nome da sobremesa: ");
                 String nome = scanner.nextLine();
 
-                System.out.print("\nInforme o preço da sobremesa: ");
-                double preco = lerDouble(scanner, "");
+                double preco = lerDouble(scanner, "\nInforme o preço da sobremesa: ");
 
                 System.out.println("\nInforme o tamanho da sobremesa(quente ou fria)");
                 String tamanho = scanner.nextLine().toUpperCase();
 
-                TemperaturaSobremesa TipoEnum = TemperaturaSobremesa.valueOf(tamanho);
+                TemperaturaSobremesa tipoEnum = TemperaturaSobremesa.valueOf(tamanho);
 
-                Produto sobremesa = new Sobremesa(nome, preco, TipoEnum);
+                Produto sobremesa = new Sobremesa(nome, preco, tipoEnum);
 
                 restaurante.cadastrarProduto(sobremesa);
 

@@ -100,7 +100,7 @@ public class Restaurante {
             }
         }
 
-        System.out.println("Total arrecadado: " + totalArrecadado);
+        System.out.printf("Total arrecadado: %.2f", totalArrecadado);
     }
     
     public void cadastrarProduto(Produto p) {
