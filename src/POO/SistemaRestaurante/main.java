@@ -1,6 +1,7 @@
 package POO.SistemaRestaurante;
 
 import POO.SistemaRestaurante.Cliente.Cliente;
+import POO.SistemaRestaurante.Produtos.*;
 
 import java.util.Scanner;
 
@@ -28,6 +29,10 @@ public class main {
                 
                 case 2 -> {
                     cadastrarProdutoCardapio(scanner, restaurante);
+                }
+                
+                case 3 -> {
+                    abrirPedido(scanner, restaurante);
                 }
                 
                 case 8 -> {
@@ -69,6 +74,20 @@ public class main {
             scanner.nextLine();
         }
     }
+
+    private static double lerDouble(Scanner scanner, String mensagem) {
+
+        while (true) {
+            System.out.print(mensagem);
+            if (scanner.hasNextDouble()) {
+                double valor = scanner.nextDouble();
+                scanner.nextLine();
+                return valor;
+            }
+            System.out.println("Digite apenas números.");
+            scanner.nextLine();
+        }
+    }
     
     private static void cadastrarCliente(Scanner scanner, Restaurante restaurante) {
         System.out.print("\nInforme seu nome para o cadastro: ");
@@ -95,6 +114,89 @@ public class main {
     
     private static void cadastrarProdutoCardapio(Scanner scanner, Restaurante restaurante) {
         
+        System.out.println("Qual tipo de produto deseja cadastrar?");
+        System.out.println("1 - Lanche");
+        System.out.println("2 - Bebida");
+        System.out.println("3 - Sobremesa");
+
+        int op = lerInteiro(scanner, "Escolha a opção desejada: ");
+        switch (op) {
+            
+            case 1 -> {
+                System.out.print("Informe o nome do lanche: ");
+                String nome = scanner.nextLine();
+
+                System.out.print("Informe o preço do lanche: ");
+                double preco = scanner.nextDouble();
+                scanner.nextLine();
+
+                System.out.println("Informe o tempo de preparo do lanche: ");
+                int tempoPreparo = scanner.nextInt();
+                
+                Produto lanche = new Lanche(nome, preco, tempoPreparo);
+                
+                restaurante.cadastrarProduto(lanche);
+            }
+            
+            case 2 -> {
+                System.out.print("Informe o nome da bebida: ");
+                String nome = scanner.nextLine();
+
+                System.out.print("Informe o preço da bebida: ");
+                double preco = lerDouble(scanner, "");
+
+                System.out.println("Informe o tempo de preparo da bebida: ");
+                int tempoPreparo = lerInteiro(scanner, "");
+
+                System.out.println("Informe o tamanho da bebida(grande, media, pequena)");
+                String tamanho = scanner.nextLine().toUpperCase();
+                
+                TamanhoBebida TipoEnum = TamanhoBebida.valueOf(tamanho);
+                        
+                Produto bebida = new Bebidas(nome, preco, tempoPreparo, TipoEnum);
+                
+                restaurante.cadastrarProduto(bebida);
+            }
+            
+            case 3 -> {
+                System.out.print("Informe o nome da sobremesa: ");
+                String nome = scanner.nextLine();
+
+                System.out.print("Informe o preço da sobremesa: ");
+                double preco = lerDouble(scanner, "");
+
+                System.out.println("Informe o tempo de preparo da sobremesa: ");
+                int tempoPreparo = lerInteiro(scanner, "");
+
+                System.out.println("Informe o tamanho da sobremesa(quente ou fria)");
+                String tamanho = scanner.nextLine().toUpperCase();
+
+                TemperaturaSobremesa TipoEnum = TemperaturaSobremesa.valueOf(tamanho);
+
+                Produto sobremesa = new Sobremesa(nome, preco, tempoPreparo, TipoEnum);
+
+                restaurante.cadastrarProduto(sobremesa);
+            }
+            
+            default -> {
+                System.out.println("Opção escolhida é inválida");
+            }
+            
+        }
+    }
+    
+    private static void abrirPedido(Scanner scanner, Restaurante restaurante) {
+        System.out.println("Informe o seu cpf para confirmar e criar o pedido");
+        String cpf = scanner.nextLine();
+        
+        if (restaurante.buscarCliente(cpf) == null) {
+            System.out.println("Cliente não encontrado em nossos registros");
+            return;
+        }
+        
+        Cliente cliente = restaurante.buscarCliente(cpf);
+        
+        System.out.println("ABrindo comanda para o cliente: " + cliente.getNome());
     }
     
     

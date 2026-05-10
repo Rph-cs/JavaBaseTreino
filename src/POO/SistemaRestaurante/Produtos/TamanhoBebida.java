@@ -1,8 +1,8 @@
 package POO.SistemaRestaurante.Produtos;
 
 public enum TamanhoBebida {
-    PEQUENO("Pequeno"),
-    MEDIO("Médio"),
+    PEQUENA("Pequena"),
+    MEDIA("Média"),
     GRANDE("Grande");
     
     private final String nomeExibicao;
