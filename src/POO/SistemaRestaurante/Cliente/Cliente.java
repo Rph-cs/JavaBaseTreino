@@ -10,7 +10,7 @@ public class Cliente {
     }
     
     public boolean verificarDigitosCpf(String cpf) {
-        return cpf != null || cpf.trim().length() == 11;
+        return cpf != null && cpf.trim().length() == 11;
     }
 
     public String getCpf() {

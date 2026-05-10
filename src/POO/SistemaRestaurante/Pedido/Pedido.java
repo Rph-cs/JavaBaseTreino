@@ -20,15 +20,19 @@ public class Pedido {
     }
     
     public boolean podeEncerrarPedido() {
-        return statusPedido == StatusPedido.ABERTO;
+        return statusPedido == StatusPedido.ABERTO && !produtos.isEmpty();
     }
     
     public void encerrarPedido() {
         statusPedido = StatusPedido.FECHADO;
     }
-    
-    public void adicionarProduto(Produto p) {
-        produtos.add(p);
+
+    public boolean adicionarProduto(Produto p) {
+        if (p.isDisponivel()) {
+            produtos.add(p);
+            return true;
+        }
+        return false;
     }
     public double totalPedido() {
         double total = 0;
@@ -58,6 +62,17 @@ public class Pedido {
         System.out.printf("Total: R$ %.2f%n", totalPedido());
         System.out.println("Tempo estimado: " + totalTempoPreparo() + " minutos");
     }
+
+    
+    public boolean valorPagoSuficiente(double valorPago) {
+        return valorPago >= totalPedido(); 
+    }
+    
+    public double calcularTroco(double valorPago) {
+        double troco = valorPago - totalPedido();
+        
+        return troco;
+    }
     
     public String getCpfCliente() {
         return cliente.getCpf();
@@ -66,8 +81,6 @@ public class Pedido {
     public String getNomeCliente() {
         return cliente.getNome();
     }
-
-
 
     public StatusPedido getStatusPedido() {
         return statusPedido;

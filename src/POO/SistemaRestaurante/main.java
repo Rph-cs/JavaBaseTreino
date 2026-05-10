@@ -36,6 +36,10 @@ public class main {
                 
                 case 5 -> mostrarPedido(scanner, restaurante);
                 
+                case 6 -> fecharPedido(scanner, restaurante);
+                
+                case 7 -> restaurante.exibirRelatorio();
+                
                 case 8 -> System.out.println("Encerrando o sistema...");
                 
                 default -> System.out.println("Opção inválida");
@@ -103,8 +107,8 @@ public class main {
             return;
         }
         
-        if (restaurante.cpfJaExiste(cpf)) {
-            System.out.println("\nO cpf informado já está cadastrado");
+        if (restaurante.buscarCliente(cpf) != null) {
+            System.out.println("CPF já cadastrado.");
             return;
         }
         restaurante.cadastrarCliente(cliente);
@@ -129,10 +133,15 @@ public class main {
                 System.out.print("\nInforme o preço do lanche: ");
                 double preco = scanner.nextDouble();
                 scanner.nextLine();
+
+                System.out.println("Informe o ingrediente do lanche: ");
+                String ingrediente = scanner.nextLine();
                 
-                Produto lanche = new Lanche(nome, preco);
+                Produto lanche = new Lanche(nome, preco, ingrediente);
                 
                 restaurante.cadastrarProduto(lanche);
+
+                System.out.println("\nLanche cadastrado com sucesso|");
             }
             
             case 2 -> {
@@ -150,6 +159,8 @@ public class main {
                 Produto bebida = new Bebidas(nome, preco, TipoEnum);
                 
                 restaurante.cadastrarProduto(bebida);
+
+                System.out.println("\nBebida cadastrado com sucesso|");
             }
             
             case 3 -> {
@@ -167,6 +178,8 @@ public class main {
                 Produto sobremesa = new Sobremesa(nome, preco, TipoEnum);
 
                 restaurante.cadastrarProduto(sobremesa);
+
+                System.out.println("\nSobremesa cadastrado com sucesso|");
             }
             
             default -> {
@@ -191,7 +204,7 @@ public class main {
         
         restaurante.cadastrarPedido(pedido);
         
-        System.out.println("\nedido para o cliente " + cliente.getNome() + " foi aberto com sucesso");
+        System.out.println("\nPedido para o cliente " + cliente.getNome() + " foi aberto com sucesso");
     }
     
     private static void adicionarProdutoPedido(Scanner scanner, Restaurante restaurante) {
@@ -205,6 +218,10 @@ public class main {
 
         Pedido pedido = restaurante.buscarPedido(cpf);
         
+        if (!restaurante.temProdutoDisponivel()) {
+            System.out.println("Não há produto disponível no momento");
+            return;
+        }
         restaurante.listarCardapio();
 
         System.out.println("\nInforme o nome do produto que deseja: ");
@@ -216,7 +233,10 @@ public class main {
         }
         Produto produto = restaurante.buscarProdutoCardapio(nomeProduto);
         
-        pedido.adicionarProduto(produto);
+        if (!pedido.adicionarProduto(produto)) {
+            System.out.println("Não é possivel adicionar um produto que está indiponível");
+            return;
+        }
 
         System.out.println("\nProduto adicionado ao pedido com sucesso!");
     }
@@ -255,10 +275,21 @@ public class main {
         
         double valorPago = lerDouble(scanner, "Informe o total que será pago: ");
         
+        if (!pedido.valorPagoSuficiente(valorPago)) {
+            System.out.println("Valor inserido é insuficiente para pagar o valor total do pedido");
+            return;
+        } 
         
-
-        pedido.encerrarPedido();
-        System.out.println("Pedido encerrado com sucesso");
+        double troco = pedido.calcularTroco(valorPago);
+        
+        if (troco == 0) {
+            pedido.encerrarPedido();
+            System.out.println("Sem troco, pedido encerrado com sucesso|");
+        } else {
+            System.out.printf("Seu troco: R$ %.2f%n", troco);
+            pedido.encerrarPedido();
+            System.out.println("Pedido encerrado com sucesso");
+        }
     }
     
     

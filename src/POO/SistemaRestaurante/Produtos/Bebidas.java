@@ -11,7 +11,7 @@ public class Bebidas extends Produto {
 
     @Override
     public int getTempoPreparo() {
-        return 15;
+        return 5;
     }
     
 }

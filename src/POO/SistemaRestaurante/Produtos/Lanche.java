@@ -2,8 +2,12 @@ package POO.SistemaRestaurante.Produtos;
 
 public class Lanche extends Produto {
 
-    public Lanche(String nome, double preco) {
+    private String ingrediente;
+    
+    public Lanche(String nome, double preco, String ingrediente) {
         super(nome, preco);
+        
+        this.ingrediente = ingrediente;
     }
 
     @Override

@@ -13,6 +13,10 @@ public abstract class Produto {
         this.statusProduto = StatusProduto.DISPONIVEL;
     }
 
+    public boolean isDisponivel() {
+        return statusProduto == StatusProduto.DISPONIVEL;
+    }
+
     public abstract int getTempoPreparo();
 
     public String getNome() {

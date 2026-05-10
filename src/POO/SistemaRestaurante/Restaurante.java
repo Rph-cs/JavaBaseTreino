@@ -19,17 +19,6 @@ public class Restaurante {
         this.cardapio = new ArrayList<>();
         
     }
-
-    public boolean cpfJaExiste(String cpf) {
-
-        for (Cliente c : cliente) {
-            if (c.getCpf().trim().equals(cpf.trim())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
     
     public Cliente buscarCliente(String cpf) {
         
@@ -41,11 +30,11 @@ public class Restaurante {
         
         return null;
     }
-    
+
     public Pedido buscarPedido(String cpf) {
-        
         for (Pedido p : pedidos) {
-            if (p.getCpfCliente().trim().equals(cpf.trim())) {
+            if (p.getCpfCliente().trim().equals(cpf.trim())
+                    && p.getStatusPedido() == StatusPedido.ABERTO) {
                 return p;
             }
         }
@@ -63,27 +52,30 @@ public class Restaurante {
     public void cadastrarCliente(Cliente c) {
         cliente.add(c);
     }
-    
-    public void abrirPedido(Pedido pedido) {
-        pedidos.add(pedido);
-    }
-    
 
     public void listarCardapio() {
+        
         if (cardapio.isEmpty()) {
             System.out.println("Nenhum produto cadastrado.");
             return;
         }
         for (Produto p : cardapio) {
-            System.out.println(p); // chama o toString automaticamente
+            if (p.isDisponivel()) {
+                System.out.println(p);
+            }
         }
     }
     
-    public void adicionarProdutoPedido() {
-        
+    public boolean temProdutoDisponivel() {
+        for (Produto p : cardapio) {
+            if (p.isDisponivel()) {
+                return true;
+            }
+        }
+        return false;
     }
     
-    public void relatorio() {
+    public void exibirRelatorio() {
         System.out.println("Total de pedidos: " + pedidos.size());
 
         int totalPedidosAbertos = 0;
@@ -100,10 +92,12 @@ public class Restaurante {
         System.out.println("Total pedidos abertos: " + totalPedidosAbertos);
         System.out.println("Total pedidos fechados: " + totalPedidosFechados);
         
-        int totalArrecadado = 0;
+        double totalArrecadado = 0;
         
         for (Pedido p : pedidos) {
-            totalArrecadado += p.totalPedido();
+            if (p.getStatusPedido() == StatusPedido.FECHADO) {
+                totalArrecadado += p.totalPedido();
+            }
         }
 
         System.out.println("Total arrecadado: " + totalArrecadado);
@@ -116,12 +110,5 @@ public class Restaurante {
     public void cadastrarPedido(Pedido p) {
         pedidos.add(p);
     }
-    
-    public double calcularValorPago(Pedido pedido, double valorPago) {
-        double valorPedido = pedido.totalPedido();
-        
-        return 0;
-    }
-    
     
 }
