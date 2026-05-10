@@ -4,34 +4,32 @@ public abstract class Produto {
 
     private String nome;
     private double preco;
-    private int tempoPreparo;
     private StatusProduto statusProduto;
 
-    public Produto(String nome, double preco, int tempoPreparo) {
+    public Produto(String nome, double preco) {
         this.nome = nome;
         this.preco = preco;
-        this.tempoPreparo = tempoPreparo;
 
         this.statusProduto = StatusProduto.DISPONIVEL;
+    }
+
+    public abstract int getTempoPreparo();
+
+    public String getNome() {
+        return nome;
     }
 
     public double getPreco() {
         return preco;
     }
 
-    public int getTempoPreparo() {
-        return tempoPreparo;
-    }
-
     @Override
     public String toString() {
-        String mensagem = """
-                Nome do produto: %s
-                Preço do produto: R$ %.2f
-                Tempo de preparo: %d minutos
-                Status do produto: %s
-                """.formatted(nome, preco, tempoPreparo, statusProduto);
-
-         return mensagem;
+        return """
+            \nNome do produto: %s
+            Preço do produto: R$ %.2f
+            Tempo de preparo: %d minutos
+            Status do produto: %s\n
+            """.formatted(nome, preco, getTempoPreparo(), statusProduto);
     }
 }

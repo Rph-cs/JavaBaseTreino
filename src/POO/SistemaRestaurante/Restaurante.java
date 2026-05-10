@@ -42,12 +42,45 @@ public class Restaurante {
         return null;
     }
     
+    public Pedido buscarPedido(String cpf) {
+        
+        for (Pedido p : pedidos) {
+            if (p.getCpfCliente().trim().equals(cpf.trim())) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    public Produto buscarProdutoCardapio(String nome) {
+        for (Produto p : cardapio) {
+            if (p.getNome().trim().equals((nome.trim()))) {
+                return p;
+            }
+        }
+        return null;
+    }
     public void cadastrarCliente(Cliente c) {
         cliente.add(c);
     }
     
     public void abrirPedido(Pedido pedido) {
         pedidos.add(pedido);
+    }
+    
+
+    public void listarCardapio() {
+        if (cardapio.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+            return;
+        }
+        for (Produto p : cardapio) {
+            System.out.println(p); // chama o toString automaticamente
+        }
+    }
+    
+    public void adicionarProdutoPedido() {
+        
     }
     
     public void relatorio() {
@@ -82,6 +115,12 @@ public class Restaurante {
     
     public void cadastrarPedido(Pedido p) {
         pedidos.add(p);
+    }
+    
+    public double calcularValorPago(Pedido pedido, double valorPago) {
+        double valorPedido = pedido.totalPedido();
+        
+        return 0;
     }
     
     

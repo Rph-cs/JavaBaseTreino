@@ -12,7 +12,7 @@ public class Pedido {
     private List<Produto> produtos;
     
     
-    Pedido (Cliente cliente) {
+    public Pedido (Cliente cliente) {
         this.cliente = cliente;
         this.statusPedido = StatusPedido.ABERTO;
         
@@ -27,6 +27,9 @@ public class Pedido {
         statusPedido = StatusPedido.FECHADO;
     }
     
+    public void adicionarProduto(Produto p) {
+        produtos.add(p);
+    }
     public double totalPedido() {
         double total = 0;
         
@@ -44,6 +47,27 @@ public class Pedido {
         }
         return totalTempo;
     }
+
+    public void exibirPedido() {
+        System.out.println("Cliente: " + getNomeCliente());
+        System.out.println("Status: " + statusPedido);
+        System.out.println("Produtos:");
+        for (Produto p : produtos) {
+            System.out.println(p);
+        }
+        System.out.printf("Total: R$ %.2f%n", totalPedido());
+        System.out.println("Tempo estimado: " + totalTempoPreparo() + " minutos");
+    }
+    
+    public String getCpfCliente() {
+        return cliente.getCpf();
+    }
+    
+    public String getNomeCliente() {
+        return cliente.getNome();
+    }
+
+
 
     public StatusPedido getStatusPedido() {
         return statusPedido;
